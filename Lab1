@@ -1,0 +1,28 @@
+import re
+import unittest
+from re import error
+
+
+def Add(numbers):
+    if not numbers:
+        return 0
+    if ',\n' in numbers:
+        return "error"
+    numbers = map(int, re.split('[,\n]', numbers))
+
+
+    return sum(numbers)
+
+class MyTestCase(unittest.TestCase):
+    def test_something(self):
+        self.assertEqual(Add("2,3"), 5)
+        self.assertEqual(Add("1"), 1)
+        self.assertEqual(Add(""), 0)
+        self.assertEqual(Add("1,2,3"), 6)
+        self.assertEqual(Add("1,2,3,4,5,6,7"), 28)
+        self.assertEqual(Add("1\n2\n3"), 6)
+        self.assertEqual(Add("1\n2\n3\n4,5"), 15)
+        self.assertEqual(Add("1\n2\n3,\n4,5"), "error")
+
+if __name__ == '__main__':
+    unittest.main()
