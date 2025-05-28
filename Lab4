@@ -1,0 +1,24 @@
+import json
+import xml.etree.ElementTree as ET
+
+class XmlData:
+    def get_xml(self):
+        return "<user><name>Mateusz</name><age>21</age><Kierunek>ISA</Kierunek></user>"
+
+class JsonAdapter:
+    def __init__(self, xml_data):
+        self.xml_data = xml_data
+
+    def get_json(self):
+        xml_str = self.xml_data.get_xml()
+        root = ET.fromstring(xml_str)
+        data = {child.tag: child.text for child in root}
+        return json.dumps(data)
+
+def main():
+    xml_source = XmlData()
+    adapter = JsonAdapter(xml_source)
+    print(adapter.get_json())
+
+main()
+
